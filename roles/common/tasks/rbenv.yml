@@ -1,0 +1,50 @@
+- name: update rbenv repo
+  git: repo=git://github.com/sstephenson/rbenv.git dest={{rbenv_root}} version=v0.4.0
+
+- name: link rbenv to path
+  file: path=/usr/local/bin/rbenv src={{rbenv_root}}/bin/rbenv state=link
+
+- name: add rbenv initialization to profile
+  template: src=rbenv.sh.j2 dest=/etc/profile.d/rbenv.sh owner=root group=root mode=0755
+
+- name: check ruby-build installed
+  command: test -x /usr/local/bin/ruby-build
+  register: rbuild_present
+  ignore_errors: yes
+
+- name: create temporary directory
+  command: mktemp -d
+  register: tempdir
+  when: rbuild_present|failed
+
+- name: clone ruby-build repo
+  git: repo=git://github.com/sstephenson/ruby-build.git dest=${tempdir.stdout}/ruby-build
+  when: rbuild_present|failed
+
+- name: install ruby-build
+  command: ./install.sh chdir=${tempdir.stdout}/ruby-build
+  when: rbuild_present|failed
+
+- name: remove temporary directory
+  file: path=${tempdir.stdout} state=absent
+
+- name: check ruby installed
+  shell: RBENV_ROOT=${rbenv_root} rbenv versions | grep {{ruby_version}}
+  register: ruby_installed
+  ignore_errors: yes
+
+- name: install ruby
+  shell: RBENV_ROOT=${rbenv_root} rbenv install {{ruby_version}}
+  when: ruby_installed|failed
+
+- name: set global ruby $ruby_version
+  shell: RBENV_ROOT=${rbenv_root} rbenv global {{ruby_version}}
+  when: ruby_installed|failed
+
+- name: rehash
+  shell: RBENV_ROOT=${rbenv_root} rbenv rehash
+  when: ruby_installed|failed
+
+- name: install bundler
+  shell: RBENV_ROOT={{rbenv_root}} {{rbenv_root}}/shims/gem install bundle --no-ri --no-rdoc && RBENV_ROOT={{rbenv_root}} {{rbenv_root}}/bin/rbenv rehash creates={{rbenv_root}}/versions/{{ruby_version}}/bin/bundle
+

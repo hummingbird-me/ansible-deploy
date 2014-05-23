@@ -14,23 +14,28 @@
   template: src=pgdg.list dest=/etc/apt/sources.list.d/pgdg.list
 
 - name: install packages
-  apt: pkg=$item state=present update_cache=yes
+  apt: pkg={{item}} state=present update_cache=yes
   with_items:
   - build-essential
-  - libssl-dev
-  - libyaml-dev
-  - git
-  - libtool
-  - libxslt1-dev
-  - libxml2-dev
-  - libpq-dev
-  - gawk
   - curl
-  - pngcrush
+  - gawk
+  - git
   - imagemagick
-  - vim
-  - ntp
-  - python-software-properties
+  - libcurl4-openssl-dev
+  - libmysqlclient-dev
   - libpq-dev
   - libpq5
+  - libreadline-dev
+  - libssl-dev
+  - libtool
+  - libxml2-dev
+  - libxslt1-dev
+  - libyaml-dev
   - monit
+  - ntp
+  - pngcrush
+  - python-software-properties
+  - vim
+  - zlib1g-dev
+
+- include: rbenv.yml
