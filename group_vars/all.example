@@ -8,3 +8,11 @@ aws_secret_access_key: ?
 
 postgres_version: 9.3
 postgres_db_password: ?
+
+smtp_address: ?
+smtp_port: ?
+smtp_username: ?
+smtp_password: ?
+smtp_authentication: ?
+
+secret_token: <generated from `rake secret`>
