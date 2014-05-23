@@ -1,9 +1,3 @@
-- name: install common packages
-  apt: pkg=$item state=present
-  with_items:
-  - vim
-  - ntp
-
 - name: set timezone to UTC
   lineinfile: dest=/etc/timezone state=present insertbefore=BOF
               regexp="^Etc/UTC" line="Etc/UTC"
@@ -13,3 +7,30 @@
   shell: dpkg-reconfigure -f noninteractive tzdata
   when: timezone.changed
 
+- name: add postgres apt signing key
+  apt_key: url=https://www.postgresql.org/media/keys/ACCC4CF8.asc state=present
+
+- name: copy postgres repo source file
+  template: src=pgdg.list dest=/etc/apt/sources.list.d/pgdg.list
+
+- name: install packages
+  apt: pkg=$item state=present update_cache=yes
+  with_items:
+  - build-essential
+  - libssl-dev
+  - libyaml-dev
+  - git
+  - libtool
+  - libxslt1-dev
+  - libxml2-dev
+  - libpq-dev
+  - gawk
+  - curl
+  - pngcrush
+  - imagemagick
+  - vim
+  - ntp
+  - python-software-properties
+  - libpq-dev
+  - libpq5
+  - monit
