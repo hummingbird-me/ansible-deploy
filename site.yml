@@ -2,3 +2,7 @@
 - hosts: all
   roles:
   - common
+
+- hosts: redis
+  roles:
+  - redis
