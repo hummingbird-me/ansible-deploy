@@ -1,0 +1,15 @@
+- name: install common packages
+  apt: pkg=$item state=present
+  with_items:
+  - vim
+  - ntp
+
+- name: set timezone to UTC
+  lineinfile: dest=/etc/timezone state=present insertbefore=BOF
+              regexp="^Etc/UTC" line="Etc/UTC"
+  register: timezone
+
+- name: reconfigure tzdata
+  shell: dpkg-reconfigure -f noninteractive tzdata
+  when: timezone.changed
+
