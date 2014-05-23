@@ -7,6 +7,9 @@
   shell: dpkg-reconfigure -f noninteractive tzdata
   when: timezone.changed
 
+- name: copy over env variables
+  template: dest=/etc/profile.d/env.sh src=env.j2 owner=root group=root mode=0755
+
 - name: add postgres apt signing key
   apt_key: url=https://www.postgresql.org/media/keys/ACCC4CF8.asc state=present
 
