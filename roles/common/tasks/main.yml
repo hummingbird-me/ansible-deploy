@@ -29,6 +29,7 @@
   - libssl-dev
   - libtool
   - libxml2-dev
+  - libxml2-utils
   - libxslt1-dev
   - libyaml-dev
   - monit
