@@ -27,6 +27,7 @@
 
 - name: remove temporary directory
   file: path={{tempdir.stdout}} state=absent
+  when: rbuild_present|failed
 
 - name: check ruby installed
   shell: RBENV_ROOT={{rbenv_root}} rbenv versions | grep {{ruby_version}}

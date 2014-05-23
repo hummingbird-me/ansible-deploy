@@ -1,18 +1,18 @@
-- name: Add Varnish apt-key
+- name: add varnish apt key
   apt_key: url=http://repo.varnish-cache.org/debian/GPG-key.txt state=present
 
-- name: Add varnish repository
+- name: add varnish repository
   copy: src=varnish.list dest=/etc/apt/sources.list.d/varnish.list
 
-- name: Install Varnish
+- name: install varnish
   apt: pkg=varnish update_cache=yes
 
-- name: Copy varnish default
+- name: copy varnish default file
   copy: src=default dest=/etc/default/varnish
 
-- name: Copy Varnish config
+- name: copy Varnish config
   template: dest=/etc/varnish/default.vcl src=default.vcl
 
-- name: Start Varnish
+- name: start varnish
   service: name=varnish state=started enabled=yes
   ignore_errors: yes

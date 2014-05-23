@@ -1,5 +1,5 @@
 - name: install postgres
-  apt: pkg=$item state=present
+  apt: pkg={{item}} state=present
   with_items:
   - pgdg-keyring
   - postgresql-{{postgres_version}}
