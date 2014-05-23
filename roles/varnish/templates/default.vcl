@@ -1,5 +1,5 @@
 backend s3 {
-  .host = "hummingbird-me.s3.amazonaws.com";
+  .host = "{{aws_bucket}}.s3.amazonaws.com";
   .port = "80";
 }
 
@@ -10,9 +10,9 @@ sub vcl_recv {
   unset req.http.expires;
   unset req.http.etag;
   unset req.http.X-Forwarded-For;
-  
+
   set req.backend = s3;
-  set req.http.host = "hummingbird-me.s3.amazonaws.com";
+  set req.http.host = "{{aws_bucket}}.s3.amazonaws.com";
 
   return (lookup);
 }

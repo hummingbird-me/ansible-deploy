@@ -1,3 +1,7 @@
 ---
 rbenv_root: /usr/local/rbenv
 ruby_version: 2.1.2
+
+aws_bucket: ?
+aws_access_key_id: ?
+aws_secret_access_key: ?

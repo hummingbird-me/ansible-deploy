@@ -11,7 +11,7 @@
   copy: src=default dest=/etc/default/varnish
 
 - name: Copy Varnish config
-  copy: dest=/etc/varnish/default.vcl src=default.vcl
+  template: dest=/etc/varnish/default.vcl src=default.vcl
 
 - name: Start Varnish
   service: name=varnish state=started enabled=yes
