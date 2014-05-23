@@ -1,0 +1,11 @@
+- name: load iptables rules on startup
+  copy: dest=/etc/network/if-pre-up.d/iptablesload.sh src=iptablesload.sh mode=755
+
+- name: copy iptables setup script
+  template: dest=/root/iptables.sh src=iptables.sh.j2 mode=755
+
+- name: execute iptables script
+  shell: /root/iptables.sh
+
+- name: save iptables rules
+  shell: iptables-save > /etc/iptables.rules
