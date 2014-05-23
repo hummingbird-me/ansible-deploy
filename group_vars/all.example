@@ -17,3 +17,4 @@ smtp_authentication: ?
 
 secret_token: <generated from `rake secret`>
 secret_key_base: <different `rake secret`>
+forum_sync_secret: <generated from `rake secret`>
