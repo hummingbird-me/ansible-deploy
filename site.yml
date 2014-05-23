@@ -6,3 +6,7 @@
 - hosts: redis
   roles:
   - redis
+
+- hosts: varnish
+  roles:
+  - varnish
