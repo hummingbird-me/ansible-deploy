@@ -1,0 +1,13 @@
+- name: install postgres
+  apt: pkg=$item state=present
+  with_items:
+  - pgdg-keyring
+  - postgresql-{{postgres_version}}
+  - postgresql-contrib-{{postgres_version}}
+  - python-psycopg2
+
+- name: copy pg_hba.conf
+  copy: src=pg_hba.conf dest=/etc/postgresql/{{postgres_version}}/main/pg_hba.conf
+
+- name: copy postgresql.conf
+  template: src=postgresql.conf dest=/etc/postgresql/{{postgres_version}}/main/postgresql.conf

@@ -18,31 +18,31 @@
   when: rbuild_present|failed
 
 - name: clone ruby-build repo
-  git: repo=git://github.com/sstephenson/ruby-build.git dest=${tempdir.stdout}/ruby-build
+  git: repo=git://github.com/sstephenson/ruby-build.git dest={{tempdir.stdout}}/ruby-build
   when: rbuild_present|failed
 
 - name: install ruby-build
-  command: ./install.sh chdir=${tempdir.stdout}/ruby-build
+  command: ./install.sh chdir={{tempdir.stdout}}/ruby-build
   when: rbuild_present|failed
 
 - name: remove temporary directory
-  file: path=${tempdir.stdout} state=absent
+  file: path={{tempdir.stdout}} state=absent
 
 - name: check ruby installed
-  shell: RBENV_ROOT=${rbenv_root} rbenv versions | grep {{ruby_version}}
+  shell: RBENV_ROOT={{rbenv_root}} rbenv versions | grep {{ruby_version}}
   register: ruby_installed
   ignore_errors: yes
 
 - name: install ruby
-  shell: RBENV_ROOT=${rbenv_root} rbenv install {{ruby_version}}
+  shell: RBENV_ROOT={{rbenv_root}} rbenv install {{ruby_version}}
   when: ruby_installed|failed
 
-- name: set global ruby $ruby_version
-  shell: RBENV_ROOT=${rbenv_root} rbenv global {{ruby_version}}
+- name: set global ruby {{ruby_version}}
+  shell: RBENV_ROOT={{rbenv_root}} rbenv global {{ruby_version}}
   when: ruby_installed|failed
 
 - name: rehash
-  shell: RBENV_ROOT=${rbenv_root} rbenv rehash
+  shell: RBENV_ROOT={{rbenv_root}} rbenv rehash
   when: ruby_installed|failed
 
 - name: install bundler

@@ -1,0 +1,15 @@
+- name: create hummingbird_production database
+  postgresql_db: db=hummingbird_production
+                 encoding='UTF-8'
+                 lc_collate='en_US.UTF-8'
+                 lc_ctype='en_US.UTF-8'
+                 template='template0'
+
+- name: create hummingbird database user
+  postgresql_user: db=hummingbird_production
+                   user=hummingbird
+                   password={{postgres_db_password}}
+                   priv=ALL
+
+- name: install trigrams extension
+  command: psql -d hummingbird_production -c "CREATE EXTENSION IF NOT EXISTS pg_trgm;"
