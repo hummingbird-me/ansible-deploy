@@ -1,0 +1,20 @@
+- name: create hummingbird user account
+  user: name=hummingbird password={{hummingbird_user_password}} shell=/bin/bash
+
+- name: fetch from git
+  git: repo={{hummingbird_repo}}
+       version={{hummingbird_commit}}
+       dest={{hummingbird_path}}
+
+- name: set file permissions
+  file: path={{hummingbird_path}}
+        state=directory
+        recurse=yes
+        owner=hummingbird
+        group=root # TODO replace with nginx
+
+- name: bundle install
+  command: /bin/su hummingbird --login -c "cd {{hummingbird_path}} && bundle install --deployment --without test"
+
+- name: precompile assets
+  command: /bin/su hummingbird --login -c "cd {{hummingbird_path}} && bundle exec rake assets:precompile"

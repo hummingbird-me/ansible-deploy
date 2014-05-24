@@ -18,3 +18,7 @@ smtp_authentication: ?
 secret_token: <generated from `rake secret`>
 secret_key_base: <different `rake secret`>
 forum_sync_secret: <generated from `rake secret`>
+
+# generated using `openssl passwd -salt <salt> -1 <password>`
+hummingbird_user_password: ?
+hummingbird_path: /var/hummingbird

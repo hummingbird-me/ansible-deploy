@@ -20,3 +20,9 @@
 - hosts: varnish
   roles:
   - varnish
+
+- hosts:
+  - app
+  - sidekiq
+  roles:
+  - hummingbird
