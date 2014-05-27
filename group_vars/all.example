@@ -15,6 +15,9 @@ smtp_username: ?
 smtp_password: ?
 smtp_authentication: ?
 
+facebook_app_id: ?
+facebook_app_secret: ?
+
 secret_token: <generated from `rake secret`>
 secret_key_base: <another `rake secret`>
 devise_secret: <another `rake secret`>
