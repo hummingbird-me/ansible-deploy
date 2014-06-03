@@ -4,6 +4,9 @@
 [sidekiq]
 1.2.3.4
 
+[nginx]
+1.2.3.4
+
 [postgres]
 1.2.3.4
 

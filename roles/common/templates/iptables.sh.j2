@@ -20,9 +20,10 @@ iptables -A INPUT -p tcp --dport ssh -j ACCEPT
 iptables -A INPUT -s {{host}} -j ACCEPT
 {% endfor %}
 
-# Allow incoming port 80 traffic to nginx.
+# Allow incoming port 80 and port 443 traffic to nginx.
 {% if 'nginx' in group_names %}
 iptables -A INPUT -p tcp --dport 80 -j ACCEPT
+iptables -A INPUT -p tcp --dport 443 -j ACCEPT
 {% endif %}
 
 # Drop all traffic that wasn't allowed by the rules above.

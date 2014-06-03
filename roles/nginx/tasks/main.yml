@@ -1,0 +1,10 @@
+- name: add nginx repo
+  apt_repository: repo=ppa:nginx/stable state=present
+  register: add_nginx_ppa
+
+- name: update package cache
+  apt: update_cache=yes
+  when: add_nginx_ppa.changed
+
+- name: install nginx
+  apt: pkg=nginx state=latest

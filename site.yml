@@ -1,28 +1,4 @@
 ---
-- hosts: all
+- hosts: nginx
   roles:
-  - common
-
-- hosts: postgres
-  roles:
-  - postgres
-
-- hosts: postgres
-  sudo: True
-  sudo_user: postgres
-  tasks:
-  - include: roles/postgres/tasks/setup_db.yml
-
-- hosts: redis
-  roles:
-  - redis
-
-- hosts: varnish
-  roles:
-  - varnish
-
-- hosts:
-  - app
-  - sidekiq
-  roles:
-  - hummingbird
+  - nginx
