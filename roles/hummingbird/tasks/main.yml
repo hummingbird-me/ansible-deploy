@@ -5,13 +5,16 @@
   git: repo={{hummingbird_repo}}
        version={{hummingbird_commit}}
        dest={{hummingbird_path}}
+  notify:
+  - restart unicorn
+  - restart sidekiq
 
 - name: set file permissions
   file: path={{hummingbird_path}}
         state=directory
         recurse=yes
         owner=hummingbird
-        group=root # TODO replace with nginx
+        group=www-data
 
 - name: bundle install
   command: /bin/su hummingbird --login -c "cd {{hummingbird_path}} && bundle install --deployment --without test"
@@ -19,10 +22,20 @@
 - name: precompile assets
   command: /bin/su hummingbird --login -c "cd {{hummingbird_path}} && bundle exec rake assets:precompile"
 
+- name: migrate database
+  command: /bin/su hummingbird --login -c "cd {{hummingbird_path}} && bundle exec rake db:migrate"
+
 - name: copy unicorn monit conf
   template: src=unicorn.monit dest=/etc/monit/conf.d/unicorn.monit
   when: "'app' in group_names"
   notify:
   - reload monit
   - start unicorn
+
+- name: copy sidekiq monit conf
+  template: src=sidekiq.monit dest=/etc/monit/conf.d/sidekiq.monit
+  when: "'sidekiq' in group_names"
+  notify:
+  - reload monit
+  - start sidekiq
 

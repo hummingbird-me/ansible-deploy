@@ -38,3 +38,9 @@
     service: name=monit state=reloaded
   - name: start unicorn
     monit: name=unicorn state=started
+  - name: start sidekiq
+    monit: name=sidekiq state=started
+  - name: restart unicorn
+    monit: name=unicorn state=restarted
+  - name: restart sidekiq
+    monit: name=sidekiq state=restarted

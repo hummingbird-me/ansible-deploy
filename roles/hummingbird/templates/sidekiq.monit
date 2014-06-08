@@ -1,0 +1,5 @@
+check process sidekiq with pidfile {{hummingbird_path}}/tmp/pids/sidekiq.pid
+  group hb
+  start program = "/bin/su - hummingbird -c 'cd {{hummingbird_path}} && bundle exec sidekiq -e production -C {{hummingbird_path}}/config/sidekiq.yml'"
+  stop program = "/bin/su - hummingbird -c 'kill `cat {{hummingbird_path}}/tmp/pids/sidekiq.pid`'"
+
