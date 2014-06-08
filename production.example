@@ -1,5 +1,5 @@
 [app]
-1.2.3.4
+1.2.3.4 unicorn_workers=4
 
 [sidekiq]
 1.2.3.4

@@ -42,5 +42,8 @@
   - vim
   - zlib1g-dev
 
+- name: copy monitrc
+  copy: src=monitrc dest=/etc/monit/monitrc
+
 - include: iptables.yml
 - include: rbenv.yml
