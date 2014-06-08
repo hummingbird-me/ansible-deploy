@@ -33,3 +33,8 @@
   - sidekiq
   roles:
   - hummingbird
+  handlers:
+  - name: reload monit
+    service: name=monit state=reloaded
+  - name: start unicorn
+    monit: name=unicorn state=started

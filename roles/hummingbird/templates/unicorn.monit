@@ -1,0 +1,4 @@
+check process unicorn with pidfile {{hummingbird_path}}/tmp/pids/unicorn.pid
+  group hb
+  start program = "/bin/su - hummingbird -c 'cd {{hummingbird_path}} && /usr/local/rbenv/shims/bundle exec unicorn -c config/unicorn.conf.rb'"
+  stop program = "/bin/su - hummingbird -c 'kill `cat {{hummingbird_path}}/tmp/pids/unicorn.pid`'"

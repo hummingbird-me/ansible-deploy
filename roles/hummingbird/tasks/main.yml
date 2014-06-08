@@ -18,3 +18,11 @@
 
 - name: precompile assets
   command: /bin/su hummingbird --login -c "cd {{hummingbird_path}} && bundle exec rake assets:precompile"
+
+- name: copy unicorn monit conf
+  template: src=unicorn.monit dest=/etc/monit/conf.d/unicorn.monit
+  when: "'app' in group_names"
+  notify:
+  - reload monit
+  - start unicorn
+
