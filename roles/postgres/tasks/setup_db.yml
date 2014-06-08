@@ -13,3 +13,5 @@
 
 - name: install trigrams extension
   command: psql -d hummingbird_production -c "CREATE EXTENSION IF NOT EXISTS pg_trgm;"
+  register: install_trgm
+  changed_when: "'already exists, skipping' not in install_trgm.stderr"
