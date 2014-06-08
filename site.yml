@@ -20,6 +20,9 @@
 - hosts: nginx
   roles:
   - nginx
+  handlers:
+  - name: reload nginx
+    service: name=nginx state=reloaded
 
 - hosts: varnish
   roles:

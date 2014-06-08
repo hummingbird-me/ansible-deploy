@@ -12,10 +12,17 @@
 - name: Remove nginx default site
   action: file path=/etc/nginx/sites-enabled/default state=absent
 
+- name: copy nginx config
+  copy: src=nginx.conf dest=/etc/nginx/nginx.conf
+  notify:
+  - reload nginx
+
 - name: copy nginx varnish config
   template: src=varnish.nginx.conf dest=/etc/nginx/sites-enabled/varnish
-  register: varnish_nginx_conf
+  notify:
+  - reload nginx
 
-- name: reload nginx
-  service: name=nginx state=reloaded
-  when: varnish_nginx_conf.changed
+- name: copy nginx app config
+  template: src=app.nginx.conf dest=/etc/nginx/sites-enabled/app
+  notify:
+  - reload nginx
