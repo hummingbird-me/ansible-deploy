@@ -1,6 +1,3 @@
-- name: create hummingbird user account
-  user: name=hummingbird password={{hummingbird_user_password}} shell=/bin/bash
-
 - name: fetch from git
   git: repo={{hummingbird_repo}}
        version={{hummingbird_commit}}

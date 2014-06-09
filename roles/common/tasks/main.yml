@@ -45,5 +45,8 @@
 - name: copy monitrc
   copy: src=monitrc dest=/etc/monit/monitrc
 
+- name: create hummingbird user account
+  user: name=hummingbird password={{hummingbird_user_password}} shell=/bin/bash
+
 - include: iptables.yml
 - include: rbenv.yml
