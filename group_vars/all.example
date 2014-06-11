@@ -22,6 +22,7 @@ secret_token: <generated from `rake secret`>
 secret_key_base: <another `rake secret`>
 devise_secret: <another `rake secret`>
 forum_sync_secret: <another `rake secret`>
+skylight_authentication: ?
 
 # generated using `openssl passwd -salt <salt> -1 <password>`
 hummingbird_user_password: ?
