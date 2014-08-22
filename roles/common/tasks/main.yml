@@ -24,7 +24,6 @@
   - gawk
   - git
   - imagemagick
-  - imagemagick
   - libcurl4-openssl-dev
   - libjpeg-progs
   - libmysqlclient-dev
@@ -41,7 +40,7 @@
   - ntp
   - optipng
   - pngcrush
-  - pngcrush
+  - pngquant
   - python-software-properties
   - vim
   - zlib1g-dev
