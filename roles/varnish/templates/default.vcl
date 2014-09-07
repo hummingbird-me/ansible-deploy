@@ -19,13 +19,13 @@ sub vcl_recv {
   if (req.http.host == "{{varnish_host}}") {
     set req.backend = s3;
     set req.http.host = "{{aws_bucket}}.s3.amazonaws.com";
+    return (lookup);
   }
   if (req.http.host == "{{forum_varnish_host}}") {
     set req.backend = s3forum;
     set req.http.host = "{{forum_aws_bucket}}.s3.amazonaws.com";
+    return (lookup);
   }
-
-  return (lookup);
 }
 
 sub vcl_fetch {
