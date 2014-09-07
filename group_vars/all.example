@@ -2,7 +2,12 @@
 rbenv_root: /usr/local/rbenv
 ruby_version: 2.1.2
 
+varnish_host: static.hummingbird.me
 aws_bucket: ?
+
+forum_varnish_host: forum-static.hummingbird.me
+forum_aws_bucket: ?
+
 aws_access_key_id: ?
 aws_secret_access_key: ?
 
