@@ -19,11 +19,15 @@
 - name: install packages
   apt: pkg={{item}} state=present update_cache=yes
   with_items:
+  - advancecomp
   - build-essential
   - curl
   - gawk
+  - gifsicle
   - git
   - imagemagick
+  - jhead
+  - jpegoptim
   - libcurl4-openssl-dev
   - libjpeg-progs
   - libmysqlclient-dev
