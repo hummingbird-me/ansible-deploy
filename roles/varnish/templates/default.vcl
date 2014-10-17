@@ -1,10 +1,10 @@
 backend s3 {
-  .host = "{{aws_bucket}}.s3.amazonaws.com";
+  .host = "s3.amazonaws.com";
   .port = "80";
 }
 
 backend s3forum {
-  .host = "{{forum_aws_bucket}}.s3.amazonaws.com";
+  .host = "s3.amazonaws.com";
   .port = "80";
 }
 
