@@ -16,12 +16,12 @@ sub vcl_recv {
   unset req.http.etag;
   unset req.http.X-Forwarded-For;
 
-  set req.http.host = "{{aws_bucket}}.s3.amazonaws.com";
-  if (req.http.host == "{{varnish_host}}") {
+  if (req.http.host == "varnish") {
+    set req.http.host = "{{aws_bucket}}.s3.amazonaws.com";
     set req.backend = s3;
     return (lookup);
   }
-  if (req.http.host == "{{forum_varnish_host}}") {
+  if (req.http.host == "forum_varnish") {
     set req.backend = s3forum;
     set req.http.host = "{{forum_aws_bucket}}.s3.amazonaws.com";
     return (lookup);
