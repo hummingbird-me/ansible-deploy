@@ -15,3 +15,6 @@
 
 [varnish]
 1.2.3.4
+
+[elasticsearch]
+1.2.3.4

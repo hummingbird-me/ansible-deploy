@@ -2,6 +2,10 @@
 - hosts: all
   roles:
   - common
+  - logstash
+  handlers:
+  - name: restart logstash
+    service: name=logstash state=restarted
 
 - hosts: postgres
   roles:
@@ -44,3 +48,7 @@
     monit: name=unicorn state=restarted
   - name: restart sidekiq
     monit: name=sidekiq state=restarted
+
+- hosts: elasticsearch
+  roles:
+  - elasticsearch

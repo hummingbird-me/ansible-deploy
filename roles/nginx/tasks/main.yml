@@ -26,3 +26,8 @@
   template: src=app.nginx.conf dest=/etc/nginx/sites-enabled/app
   notify:
   - reload nginx
+
+- name: copy nginx elasticsearch config
+  template: src=elasticsearch.nginx.conf dest=/etc/nginx/sites-enabled/elasticsearch
+  notify:
+  - reload nginx
