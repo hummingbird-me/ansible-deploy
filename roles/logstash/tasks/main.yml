@@ -13,8 +13,16 @@
 - name: install logstash-contrib
   apt: pkg=logstash-contrib state=present
 
+- name: stop logstash service
+  service: name=logstash state=stopped
+
+- name: copy monit file
+  copy: src=logstash.monit dest=/etc/monit/conf.d/logstash.monit
+  notify:
+  - reload monit
+
 - name: start logstash
-  service: name=logstash state=started
+  monit: name=logstash state=started
 
 - name: copy logstash config
   template: src=logstash.conf dest=/etc/logstash/conf.d/logstash.conf

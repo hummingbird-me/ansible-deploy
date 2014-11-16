@@ -4,8 +4,10 @@
   - common
   - logstash
   handlers:
+  - name: reload monit
+    service: name=monit state=reloaded
   - name: restart logstash
-    service: name=logstash state=restarted
+    monit: name=logstash state=restarted
 
 - hosts: postgres
   roles:
