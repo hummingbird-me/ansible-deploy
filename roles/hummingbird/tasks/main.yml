@@ -1,3 +1,17 @@
+- name: install node
+  apt: pkg={{item}} state=present
+  with_items:
+  - nodejs
+  - nodejs-legacy
+  - npm
+
+- name: install npm packages
+  npm: name={{item}} global=yes
+  with_items:
+  - ember-cli
+  - bower
+  - phantomjs
+
 - name: fetch from git
   git: repo={{hummingbird_repo}}
        version={{hummingbird_commit}}
@@ -15,6 +29,9 @@
 
 - name: bundle install
   command: /bin/su hummingbird --login -c "cd {{hummingbird_path}} && bundle install --deployment --without test"
+
+- name: npm and bower install
+  command: /bin/su hummingbird --login -c "cd {{hummingbird_path}} && npm install && bower install --allow-root"
 
 - name: precompile assets
   command: /bin/su hummingbird --login -c "cd {{hummingbird_path}} && bundle exec rake assets:precompile"
