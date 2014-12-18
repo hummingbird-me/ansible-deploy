@@ -31,10 +31,10 @@
   command: /bin/su hummingbird --login -c "cd {{hummingbird_path}} && bundle install --deployment --without test"
 
 - name: npm and bower install
-  command: /bin/su hummingbird --login -c "cd {{hummingbird_path}} && npm install && bower install --allow-root"
+  command: /bin/su hummingbird --login -c "cd {{hummingbird_path}} && cd app/frontend && npm install && bower install"
 
 - name: precompile assets
-  command: /bin/su hummingbird --login -c "cd {{hummingbird_path}} && bundle exec rake assets:precompile"
+  command: /bin/su hummingbird --login -c "cd {{hummingbird_path}} && bundle exec rake assets:precompile EMBERCLI_COMPILE=1"
 
 - name: migrate database
   command: /bin/su hummingbird --login -c "cd {{hummingbird_path}} && bundle exec rake db:migrate"
