@@ -26,6 +26,9 @@ facebook_app_secret: ?
 dropbox_key: ?
 dropbox_secret: ?
 
+stripe_publishable_key: ?
+stripe_secret_key: ?
+
 secret_token: <generated from `rake secret`>
 secret_key_base: <another `rake secret`>
 devise_secret: <another `rake secret`>
