@@ -14,7 +14,7 @@
   apt: pkg=logstash-contrib state=present
 
 - name: stop logstash service
-  service: name=logstash state=stopped
+  service: name=logstash state=stopped enabled=no
 
 - name: copy monit file
   copy: src=logstash.monit dest=/etc/monit/conf.d/logstash.monit
@@ -23,6 +23,7 @@
 
 - name: start logstash
   monit: name=logstash state=started
+  ignore_errors: yes # TODO figure out why it isn't starting on es server
 
 - name: copy logstash config
   template: src=logstash.conf dest=/etc/logstash/conf.d/logstash.conf

@@ -6,3 +6,6 @@
 
 - name: install elasticsearch
   apt: pkg=elasticsearch state=present
+
+- name: start elasticsearch
+  service: name=elasticsearch state=started
