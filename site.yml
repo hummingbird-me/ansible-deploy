@@ -51,6 +51,17 @@
   - name: restart sidekiq
     monit: name=sidekiq state=restarted
 
+- hosts: prerender
+  roles:
+  - prerender
+  handlers:
+  - name: reload monit
+    service: name=monit state=reloaded
+  - name: start prerender
+    monit: name=prerender state=started
+  - name: restart prerender
+    monit: name=prerender state=restarted
+
 - hosts: elasticsearch
   roles:
   - elasticsearch

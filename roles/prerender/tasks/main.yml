@@ -1,0 +1,40 @@
+- name: create prerender user account
+  user: name=prerender shell=/bin/bash
+
+- name: install node
+  apt: pkg={{item}} state=present
+  with_items:
+  - nodejs
+  - nodejs-legacy
+  - npm
+
+- name: install npm packages
+  npm: name={{item}} global=yes
+  with_items:
+  - phantomjs
+
+- name: fetch from git
+  git: repo=https://github.com/zipfworks/ember-prerender.git
+       version=e5b54f856c748425813cb0d0fcdee34f163cb071
+       dest=/var/prerender
+  notify:
+  - restart prerender
+
+- name: set file permissions
+  file: path=/var/prerender
+        state=directory
+        recurse=yes
+        owner=hummingbird
+        group=www-data
+
+- name: npm install
+  command: /bin/su prerender --login -c "cd /var/prerender && npm install"
+
+- name: copy prerender monit conf
+  template: src=prerender.monit dest=/etc/monit/conf.d/prerender.monit
+  notify:
+  - reload monit
+  - start prerender
+
+- name: copy config
+  copy: src=config.js dest=/var/prerender/config.js

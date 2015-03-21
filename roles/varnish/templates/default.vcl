@@ -8,6 +8,13 @@ backend s3forum {
   .port = "80";
 }
 
+{% for host in groups['prerender'] %}
+backend prerender{{loop.index}} {
+  .host = "{{host}}"
+  .port = "3500"
+}
+{% endfor %}
+
 sub vcl_recv {
   unset req.http.cookie;
   unset req.http.cache-control;
@@ -24,6 +31,11 @@ sub vcl_recv {
   if (req.http.host == "forum_varnish") {
     set req.backend = s3forum;
     set req.http.host = "{{forum_aws_bucket}}.s3.amazonaws.com";
+    return (lookup);
+  }
+  if (req.http.host == "prerender_server") {
+    set req.backend = prerender1;
+    set req.http.host = "hummingbird.me";
     return (lookup);
   }
 }
