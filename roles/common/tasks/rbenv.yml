@@ -1,5 +1,5 @@
 - name: update rbenv repo
-  git: repo=git://github.com/sstephenson/rbenv.git dest={{rbenv_root}}
+  git: repo=https://github.com/sstephenson/rbenv dest={{rbenv_root}}
 
 - name: link rbenv to path
   file: path=/usr/local/bin/rbenv src={{rbenv_root}}/bin/rbenv state=link

@@ -14,7 +14,8 @@
 
 - name: fetch from git
   git: repo={{hummingbird_repo}}
-       version={{hummingbird_commit}}
+       force=yes
+       depth=20
        dest={{hummingbird_path}}
   notify:
   - restart unicorn
